@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Murat Hoca Saygilar
+	burasi yasinin sayfasi
 </body>
 </html>
