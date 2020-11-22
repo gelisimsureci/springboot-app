@@ -1,7 +1,7 @@
 package com.springboot.app.service.impl;
 
 import com.springboot.app.model.User;
-import com.springboot.app.reporsitory.UserRepository;
+import com.springboot.app.repository.UserRepository;
 import com.springboot.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
