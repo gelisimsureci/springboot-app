@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,9 +35,13 @@
 					<label for="gender">Cinsiyet</label> <select id="gender"
 						name="gender" class="form-control">
 						<option disabled selected>Seciniz...</option>
-						<option value="woman">Kadin</option>
-						<option value="men">Erkek</option>
+						<option value="Kadın">Kadin</option>
+						<option value="Erkek">Erkek</option>
 					</select>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="salary">Maaş</label> <input type="text"
+						class="form-control" id="salary" name="salary" placeholder="Maaş">
 				</div>
 			</div>
 			<input type="submit" class="btn btn-primary" value="Kaydet">

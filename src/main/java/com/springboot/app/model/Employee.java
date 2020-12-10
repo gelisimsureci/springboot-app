@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.Type;
+
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -27,6 +29,7 @@ public class Employee implements Serializable {
 	@GeneratedValue(generator = "employeeGen", strategy = GenerationType.SEQUENCE)
 	private Long id;
 	@NotNull
+	@Type(type="uuid-char")
 	private UUID uuid;
 	private String name;
 	private String surname;
