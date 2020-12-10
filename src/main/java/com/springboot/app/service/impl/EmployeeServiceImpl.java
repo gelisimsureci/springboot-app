@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.app.model.Employee;
-import com.springboot.app.reporsitory.EmployeeRepository;
+import com.springboot.app.repository.EmployeeRepository;
 import com.springboot.app.service.EmployeeService;
 
 @Service
