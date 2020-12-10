@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.springboot.app.model.Employee;
 import com.springboot.app.service.EmployeeService;
@@ -51,4 +48,18 @@ public class EmployeeController {
 		employeeService.saveEmployee(employee);
 		return "redirect:/employee/employees";
 	}
+
+	@GetMapping(value = "/delete/{id}")
+	public String deleteEmployee(@PathVariable("id") Long id) {
+
+
+
+		employeeService.deleteEmployeeById(id);
+
+		return "redirect:/employee/employees";
+	}
+
+
+
+
 }
