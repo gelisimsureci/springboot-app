@@ -2,6 +2,7 @@ package com.springboot.app.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Optional<Employee>optional=employeeRepository.findById(id);
 		if(optional.isPresent())
 			return optional.get();
+		return null;
+	}
+
+	@Override
+	public Employee getByUuid(UUID uuid) {
+		Optional<Employee> employee= employeeRepository.findByUuid(uuid);
+		if(employee.isPresent())
+			return employee.get();
 		return null;
 	}
 

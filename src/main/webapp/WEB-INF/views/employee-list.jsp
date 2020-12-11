@@ -33,7 +33,9 @@
                 <td>${employee.surname}</td>
                 <td>${employee.gender}</td>
                 <td>${employee.salary}</td>
-                <td><a class="btn btn-danger" href="/employee/delete/${employee.id}">Sil</a></td>
+                <td><a class="btn btn-danger" href="/employee/delete/${employee.id}">Sil</a>
+             <a class="btn btn-info" href="/employee/edit/${employee.uuid}">Düzenle</a>
+                </td>
 
             </tr>
         </c:forEach>

@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.springboot.app.model.Employee;
 import com.springboot.app.service.EmployeeService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/employee")
@@ -49,17 +51,33 @@ public class EmployeeController {
 		return "redirect:/employee/employees";
 	}
 
-	@GetMapping(value = "/delete/{id}")
-	public String deleteEmployee(@PathVariable("id") Long id) {
-
-
-
-		employeeService.deleteEmployeeById(id);
-
+	@GetMapping(value = "/delete/{uuid}")
+	public String removeEmployee(@PathVariable("uuid") UUID uuid) {
+		employeeService.deleteEmployeeById(employeeService.getByUuid(uuid).getId());
 		return "redirect:/employee/employees";
 	}
 
+	@GetMapping(value = "/edit/{uuid}")
+	public String updateEmployee(@PathVariable("uuid") UUID uuid, Model model) {
+		Employee employee = employeeService.getByUuid(uuid);
+		model.addAttribute("employee", employee);
+		return "employee-edit";
+	}
 
+	@PostMapping(value = "/update/{uuid}")
+	public String updateEmployee(@RequestParam(name = "name") String name,
+								  @RequestParam(name = "surname") String surname, @RequestParam(name = "address") String address,
+								  @RequestParam(name = "gender") String gender,
+								  @RequestParam(name = "salary", defaultValue = "") BigDecimal salary,@PathVariable("uuid") UUID uuid) {
 
+		Employee employee = employeeService.getByUuid(uuid);
+		employee.setAddress(address);
+		employee.setName(name);
+		employee.setSalary(salary);
+		employee.setSurname(surname);
+		employee.setGender(gender);
+		employeeService.saveEmployee(employee);
+		return "redirect:/employee/employees";
+	}
 
 }
