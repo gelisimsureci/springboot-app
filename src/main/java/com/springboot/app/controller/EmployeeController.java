@@ -48,7 +48,7 @@ public class EmployeeController {
 		employee.setName(name);
 		employee.setSalary(salary);
 		employeeService.saveEmployee(employee);
-		return "redirect:/employee/employees";
+		return "redirect:/employee/employees?message=employeecreated";
 	}
 
 	@GetMapping(value = "/delete/{uuid}")
