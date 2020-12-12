@@ -45,8 +45,21 @@
 </head>
 <body>
 	<div class="container">
+		<c:set var="message" scope="request"><%=request.getParameter("message") != null
+				&& "usercreated".equalsIgnoreCase(request.getParameter("message"))%>
+		</c:set>
+		<c:if test="${message}">
+			<div class="alert alert-success alert-dismissible fade show"
+				 role="alert">
+				Kullanıcı kaydı başarılı!
+				<button class="close" type="button" data-dismiss="alert"
+						aria-label="Close">
+					<span aria-hidden="true">x</span>
+				</button>
+			</div>
+		</c:if>
 		<div class="login-form">
-			<form action="/examples/actions/confirmation.php" method="post">
+			<form  method="post">
 				<h2 class="text-center">Kullanıcı Giriş</h2>
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="E-Posta"
@@ -58,6 +71,9 @@
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary btn-block">Giriş</button>
+				</div>
+				<div class="form-group">
+					<a  href="/user/signup" class="btn btn-success btn-block">Kayıt Ol</a>
 				</div>
 				<div class="clearfix">
 					<a href="#" class="float-right">Şifreni mi Unuttun?</a>
