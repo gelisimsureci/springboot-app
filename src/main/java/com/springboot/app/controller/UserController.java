@@ -1,8 +1,10 @@
 package com.springboot.app.controller;
 
 import com.springboot.app.model.User;
+import com.springboot.app.service.MailService;
 import com.springboot.app.service.UserService;
 
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private MailService mailService;
+
 	@GetMapping("/signin")
 	public String userLogin() {
 		return "user-signin";
@@ -27,10 +32,8 @@ public class UserController {
 	}
 
 	@PostMapping("/create")
-	public String saveUser(@RequestParam(name = "name") String name,
-						   @RequestParam(name = "surname") String surname,
-						   @RequestParam(name = "email") String email,
-						   @RequestParam(name = "password") String password){
+	public String saveUser(@RequestParam(name = "name") String name, @RequestParam(name = "surname") String surname,
+			@RequestParam(name = "email") String email, @RequestParam(name = "password") String password) {
 		User user = new User();
 		user.setUuid(UUID.randomUUID());
 		user.setName(name);
@@ -38,7 +41,8 @@ public class UserController {
 		user.setEmail(email);
 		user.setPassword(password);
 		userService.saveUser(user);
-
+		String[] to = { user.getEmail() };
+		mailService.sendMailTo("Patladın", "Sen Kimsin!!", to);
 		return "redirect:/user/signin?message=usercreated";
 	}
 }
