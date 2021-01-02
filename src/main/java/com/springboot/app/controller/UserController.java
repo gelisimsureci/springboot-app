@@ -18,9 +18,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private MailService mailService;
-
 	@GetMapping("/signin")
 	public String userLogin() {
 		return "user-signin";
@@ -41,8 +38,6 @@ public class UserController {
 		user.setEmail(email);
 		user.setPassword(password);
 		userService.saveUser(user);
-		String[] to = { user.getEmail() };
-		mailService.sendMailTo("Patladın", "Sen Kimsin!!", to);
 		return "redirect:/user/signin?message=usercreated";
 	}
 }

@@ -1,31 +1,36 @@
 package com.springboot.app.service.impl;
 
 import com.springboot.app.service.MailService;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.stereotype.Service;
+import com.springboot.app.util.MailUtil;
 
+import java.util.stream.Stream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MailServiceImpl implements MailService {
 
+	@Autowired
+	private MailUtil mailUtil;
+
 	@Override
-	public void sendMailTo(String subject, String content, String[] to) {
-		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-		SimpleMailMessage msg = new SimpleMailMessage();
-		msg.setTo(to);
-		msg.setText(content);
-		msg.setSubject(subject);
-		try {
-			sender.send(msg);
-		} catch (MailException ex) {
-			System.err.println(ex.getMessage());
-		}
+	public void sendMailToArray(String subject, String content, String[] to) {
+		mailUtil.sendMail(subject, content, null, to);
 	}
 
 	@Override
-	public void sendMailToAnCc(String subject, String content, String[] to, String[] cc) {
+	public void sendMailToArrayAnCcArray(String subject, String content, String[] to, String[] cc) {
+		mailUtil.sendMail(subject, content, cc, to);
+	}
 
+	@Override
+	public void sendMailToAnCc(String subject, String content, String to, String cc) {
+		mailUtil.sendMail(subject, content, Stream.of(cc).toArray(String[]::new), Stream.of(to).toArray(String[]::new));
+	}
+
+	@Override
+	public void sendMailTo(String subject, String content, String to) {
+		mailUtil.sendMail(subject, content, null, Stream.of(to).toArray(String[]::new));
 	}
 }
